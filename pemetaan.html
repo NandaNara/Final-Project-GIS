@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Visualisasi Mutu Sekolah</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    integrity="sha512-..."
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    @font-face {
+      font-family: 'Product Sans';
+      src: url('fonts/ProductSans-Regular.woff2') format('woff2');
+      font-weight: normal;
+      font-style: normal;
+    }
+    body {
+      font-family: 'Product Sans', sans-serif;
+      background-color: #ffffff;
+      color: #1c1c1c;
+      line-height: 1.6;
+    }
+    header {
+      background-color: #ffffff;
+      padding: 20px 80px;
+      position: sticky;
+      top: 0;
+      z-index: 30;
+    }
+    .nav-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 30px;
+      padding-bottom: 20px;
+    }
+   .logo {
+  font-size: 36px;
+  font-weight: 900;
+  font-family: 'Poppins', 'Montserrat', sans-serif;
+  background: linear-gradient(90deg, #0B5C78 0%, #56a5c0 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  position: relative;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  /* Shadow lembut agar teks keluar */
+  text-shadow: 1px 1px 3px rgba(11, 92, 120, 0.7);
+}
+
+.logo::before {
+  content: attr(data-text);
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  color: #17404e;
+  z-index: -1;
+  filter: blur(3px);
+  opacity: 0.5;
+}
+
+.logo .highlight {
+  background: linear-gradient(90deg, #56a5c0 0%, #0B5C78 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 900;
+  text-shadow: 1px 1px 3px rgba(86, 165, 192, 0.8);
+}
+
+
+    .nav-pill {
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  background-color: #0B5C78;
+      padding: 20px 20px;
+      border-radius: 999px;
+    }
+    .nav-pill ul {
+      display: flex;
+      list-style: none;
+      gap: 24px;
+      margin: 0;
+      padding: 0;
+    }
+    .nav-pill a {
+      text-decoration: none;
+      color: #ffffff;
+      font-weight: 800;
+    }
+    .nav-pill a:hover {
+      color: #67c2e0;
+    }
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .icon-btn {
+  background: linear-gradient(90deg, #56a5c0 0%, #0B5C78 100%);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      border: none;
+      border-radius: 50%;
+      padding: 16px;
+      font-size: 18px;
+      cursor: pointer;
+      transition: background 0.3s, color 0.3s, transform 0.2s;
+      color: #ffffff;
+    }
+    .icon-btn i {
+      pointer-events: none;
+    }
+    .icon-btn:hover {
+      background-color: #67c2e0;
+      color: #fff;
+      transform: scale(1.05);
+    }
+    .hero-content {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 40px;
+      justify-content: space-between;
+      align-items: center;
+      text-align: left;
+      margin-bottom: 80px;
+    }
+    .hero-left {
+      flex: 1 1 50%;
+    }
+    .hero-left h1 {
+      font-size: 46px;
+      color: #1c1c1c;
+      font-weight: 700;
+    }
+    .hero-right {
+      flex: 1 1 40%;
+    }
+    .hero-right p {
+      font-size: 20px;
+      color: #383838;
+      margin-bottom: 30px;
+    }
+    .hero-image {
+      position: relative;
+      display: inline-block;
+      width: 100%;
+    }
+    .hero-image img {
+      width: 100%;
+      max-height: 750px;
+      object-fit: cover;
+      border-radius: 16px;
+      box-shadow: 0 4px 12px rgba(15, 158, 160, 0.06);
+      display: block;
+    }
+    .hero-image::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      border-radius: 16px;
+      background: linear-gradient(
+        180deg,
+        rgba(56, 132, 157, 0.253),
+        rgba(20, 46, 55, 0.8)
+      );
+      pointer-events: none;
+    }
+    .btn {
+      background-color: #17404e;
+      color: white;
+      padding: 14px 32px;
+      border: none;
+      border-radius: 999px;
+      font-size: 16px;
+      font-weight: 600;
+      text-decoration: none;
+      display: inline-block;
+      transition: 0.3s;
+    }
+    .btn:hover {
+      background: linear-gradient(90deg, #0b5c78, #56a5c0);
+    }
+    .search-section {
+      padding: 40px;
+      display: flex;
+      justify-content: center;
+    }
+    .benefit-section {
+      position: relative;
+      width: 90%;
+      margin: -245px auto 0 auto;
+      border-radius: 20px;
+      z-index: 20;
+    }
+    .info_content h2 {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 32px;
+      text-align: center;
+      color: #17404e;
+    }
+    .benefit-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 24px;
+    }
+    .benefit-card {
+      background-color: white;
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: 0 4px 12px rgba(15, 157, 160, 0.233);
+      text-align: center;
+      transition: transform 0.2s ease;
+    }
+    .benefit-card:hover {
+      transform: translateY(-4px);
+    }
+    .benefit-icon {
+      font-size: 32px;
+      color: #67c2e0;
+      margin-bottom: 16px;
+    }
+    .benefit-card p {
+      margin: 0;
+      font-size: 20px;
+      color: #383838;
+      line-height: 1.6;
+    }
+
+   #kategori {
+  padding-top: 140px;
+      padding-left: 80px;
+      padding-right: 80px;
+      width: 100%;
+}
+
+.kategori-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 40px;
+  flex-wrap: wrap;
+  margin-bottom: 40px;
+}
+
+.kategori-left {
+  flex: 1;
+  min-width: 280px;
+}
+.kategori-left1 {
+  align-items: center;
+  display: flex;
+
+  flex: 1;
+  min-width: 280px;
+}
+
+
+.kategori-left h2 {
+  font-size: 32px;
+  font-weight: bold;
+  margin-bottom: 12px;
+}
+
+#searchMutu {
+  padding: 12px 40px 12px 16px; /* extra space kanan untuk icon */
+  border: none;
+  border-radius: 999px;
+  font-size: 1rem;
+  background-color: #fff;
+  box-shadow: 0 0 0 3px #0B5C78;
+  color: #333;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg fill='%230B5C78' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M7 10l5 5 5-5'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  background-size: 1rem;
+  cursor: pointer;
+  width: 100%;
+  max-width: 300px; /* kamu bisa sesuaikan lebih besar dari ini */
+}
+
+#searchMutu:focus {
+  outline: none;
+  box-shadow: 0 0 0 4px #0B5C78;
+}
+
+
+#searchMutu option {
+  padding: 12px;
+  font-size: 1rem;
+  background-color: #fff;
+  color: #0B5C78;
+}
+
+#searchMutu option:hover,
+#searchMutu option:checked {
+  background-color: #0B5C78;
+  color: white;
+}
+
+.kategori-right {
+    justify-content: center;
+  align-items: center;
+  display: flex;
+
+  flex: 1;
+  min-width: 280px;
+}
+
+.kategori-right p {
+  font-size: 18px;
+  color: #444;
+  line-height: 1.6;
+}
+
+.gallery {
+  text-align: center;
+  padding-top: 15px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.main-image img {
+  width: 100%;
+  max-width: 100%; /* agar mengikuti lebar container */
+  border-radius: 20px;
+      box-shadow: 0 4px 8px rgba(15, 157, 160, 0.178);
+  transition: all 0.3s ease;
+}
+
+
+.main-image {
+  margin-bottom: 20px;
+}
+
+
+
+.thumbnail-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 16px;
+  box-sizing: border-box;
+
+}
+
+.thumbnail {
+        box-shadow: 0 4px 8px rgba(15, 157, 160, 0.178);
+
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+  border: 2px solid transparent;
+}
+
+.thumbnail:hover {
+  transform: scale(1.05);
+  border-color: #0B5C78;
+}
+
+    section {
+      padding-top: 140px;
+      padding-left: 80px;
+      padding-right: 80px;
+      width: 100%;
+    }
+    h2 {
+      font-size: 32px;
+      font-weight: 700;
+      color: #1e1e1e;
+      margin-bottom: 24px;
+    }
+    .visual-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 24px;
+  margin-top: 32px;
+}
+
+.visual-card {
+  background: white;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 8px 16px rgba(11, 92, 120, 0.2);
+  text-align: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  border: 2px solid transparent;
+}
+
+.visual-card:hover {
+  background-color: #0B5C78;
+  color: white;
+  transform: translateY(-6px);
+  border-color: #07494F;
+}
+
+.visual-card:hover p {
+  color: white;
+}
+
+.visual-card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.3s ease;
+  border-bottom: 1px solid #ddd;
+}
+
+.visual-card:hover img {
+  transform: scale(1.05);
+}
+
+.visual-card p {
+  padding: 16px;
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: #333;
+  margin: 0;
+}
+
+/* Modal styles */
+#imageModal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0; top: 0;
+  width: 100%; height: 100%;
+  background-color: rgba(0,0,0,0.8);
+  justify-content: center;
+  align-items: center;
+}
+
+#imageModal img {
+  max-width: 90%;
+  max-height: 80%;
+  border-radius: 12px;
+  box-shadow: 0 0 30px #0B5C78;
+  cursor: zoom-out;
+}
+
+    iframe {
+      border-radius: 16px;
+      width: 100%;
+      height: 600px;
+      border: none;
+      box-shadow: 0 4px 8px rgba(15, 157, 160, 0.178);
+    }
+    footer {
+  background-color: #0B5C78;
+  text-align: center;
+  margin-top: 140px;
+  padding: 32px 20px;
+  font-size: 14px;
+  color: #e0e6ea; /* warna terang supaya kontras dengan background */
+  font-family: 'Poppins', sans-serif;
+  letter-spacing: 0.5px;
+  box-shadow: inset 0 2px 8px rgba(255, 255, 255, 0.1);
+  user-select: none;
+}
+
+footer p {
+  max-width: 480px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+footer p strong {
+  color: #cce3f5; /* highlight ringan untuk kata penting */
+}
+
+footer p .heart {
+  color: #ff6b6b;
+  font-weight: 700;
+}
+
+/* Responsive for tablets and smaller */
+@media (max-width: 1024px) {
+  header {
+    padding: 20px 40px;
+  }
+  .nav-container {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .nav-pill ul {
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: center;
+  }
+  .hero-content {
+    gap: 20px;
+  }
+  .hero-left, .hero-right {
+    flex: 1 1 100%;
+    text-align: center;
+  }
+  .hero-left h1 {
+    font-size: 32px;
+  }
+  .hero-right p {
+    font-size: 18px;
+  }
+  .hero-right .btn {
+    margin: 0 auto;
+  }
+  .hero-image {
+    margin-top: 20px;
+  }
+  .hero-image img {
+    max-height: 400px;
+  }
+  #kategori {
+    padding: 80px 40px 40px 40px;
+  }
+  .kategori-header {
+    flex-direction: column;
+    gap: 24px;
+    text-align: center;
+  }
+  .kategori-left, .kategori-left1, .kategori-right {
+    flex: 1 1 100%;
+  }
+  .kategori-right p {
+    font-size: 16px;
+  }
+  .search-section {
+    padding: 20px;
+  }
+  section {
+    padding: 80px 40px 40px 40px;
+  }
+  .benefit-cards {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  }
+  .visual-grid {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  }
+  iframe {
+    height: 400px;
+  }
+}
+
+/* Responsive for mobile phones */
+@media (max-width: 600px) {
+  header {
+    padding: 15px 20px;
+  }
+  /* Nav container jadi kolom supaya bisa pisah baris */
+  .nav-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* logo di tengah */
+    gap: 16px;
+  }
+  /* Logo tetap di baris pertama, full width tapi text center */
+  .logo {
+    order: 1;
+    width: 100%;
+    text-align: center;
+    font-size: 28px;
+  }
+  /* Nav pill (menu) dan nav-actions dibungkus baris kedua */
+  .nav-pill,
+  .nav-actions {
+    order: 2;
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    gap: 20px;
+  }
+  /* Menu jadi baris horizontal */
+  .nav-pill ul {
+    flex-direction: row;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    gap: 16px;
+    justify-content: center;
+    width: auto;
+  }
+  .nav-pill ul li {
+    width: auto;
+  }
+  .nav-pill a {
+    display: inline-block;
+    padding: 8px 12px;
+    white-space: nowrap;
+  }
+  /* Icon actions tetap horizontal di sebelah menu */
+  .nav-actions {
+    flex-shrink: 0;
+  }
+  .hero-content {
+    flex-direction: column;
+    text-align: center;
+    gap: 16px;
+  }
+  .hero-left h1 {
+    font-size: 24px;
+  }
+  .hero-right p {
+    font-size: 16px;
+  }
+  .btn {
+    padding: 12px 24px;
+    font-size: 14px;
+  }
+  .hero-image img {
+    max-height: 300px;
+  }
+  #kategori {
+    padding: 40px 20px 20px 20px;
+  }
+  .kategori-header {
+    flex-direction: column;
+    gap: 16px;
+    text-align: center;
+  }
+  .kategori-right p {
+    font-size: 14px;
+  }
+  .benefit-cards {
+    grid-template-columns: 1fr;
+  }
+  .visual-grid {
+    grid-template-columns: 1fr;
+  }
+  iframe {
+    height: 300px;
+  }
+  #searchMutu {
+    max-width: 100%;
+  }
+  .thumbnail-row {
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  }
+}
+  </style>
+</head>
+<body>
+  <div id="imageModal">
+  <img src="" alt="Zoomed Image" />
+</div>
+
+  <header>
+    <div class="nav-container">
+      <div class="logo"><span class="highlight">Edu</span>Map</div>
+      <div class="nav-pill">
+        <ul>
+          <li><a href="#home">Beranda</a></li>
+          <li><a href="#dashboard">Dashboard</a></li>
+          <li><a href="#kategori">Peta Mutu</a></li>
+          <li><a href="#visual">Peta Visual</a></li>
+        </ul>
+      </div>
+      <div class="nav-actions">
+        <button class="icon-btn" title="Sumber">
+          <i class="fas fa-book"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <section id="home" class="hero-section">
+    <div class="hero-content">
+      <div class="hero-left">
+        <h1>
+          Distribusi dan Kualitas Pendidikan Tingkat Menengah Atas dan Kejuruan di Kota Tulungagung 2024/2025
+        </h1>
+      </div>
+      <div class="hero-right">
+        <p>
+          Temukan wawasan mendalam mengenai sebaran dan kualitas sekolah SMA & SMK di Tulungagung.
+          Dashboard ini menyajikan visualisasi data interaktif untuk mendukung pengambilan keputusan pendidikan yang lebih baik.
+        </p>
+        <a href="#dashboard" class="btn">Lihat Dashboard</a>
+      </div>
+    </div>
+    <div class="hero-image">
+      <img src="img/sekolah.png" alt="Sekolahan di Tulungagung" />
+    </div>
+  </section>
+
+  <section id="info" class="benefit-section">
+  <div class="info_content">
+    <div class="benefit-cards">
+      <div class="benefit-card">
+        <i class="fas fa-chart-line benefit-icon"></i>
+        <p>Memberikan gambaran visual kondisi mutu sekolah</p>
+      </div>
+      <div class="benefit-card">
+        <i class="fas fa-lightbulb benefit-icon"></i>
+        <p>Membantu pengambil kebijakan dalam merencanakan program pendidikan</p>
+      </div>
+      <div class="benefit-card">
+        <i class="fas fa-eye benefit-icon"></i>
+        <p>Meningkatkan transparansi dan keterbukaan data</p>
+      </div>
+      <div class="benefit-card">
+        <i class="fas fa-users benefit-icon"></i>
+        <p>Mempermudah masyarakat dalam mengakses informasi pendidikan</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+   <section id="dashboard">
+    <div class="kategori-header">
+    <div class="kategori-left">
+      <h2>Distribusi Sekolah</h2>
+    </div>
+    <div class="kategori-right">
+<p>Distribusi sekolah ditampilkan berdasarkan lokasi geografis lengkap dengan informasi nama sekolah, status, jenjang, kecamatan, jumlah siswa dan guru, serta peringkat mutu. Peringkat ini dihitung dari gabungan akreditasi, rasio siswa per guru, rasio siswa per ruang kelas, dan kelengkapan fasilitas.
+</p>
+    </div>
+  </div>  
+    <iframe src="https://metabase.kangnara.my.id/public/dashboard/37ae83bb-5c4b-48ea-a5db-37b513d282d2"></iframe>
+  </section>
+  
+  <section id="kategori">
+  <div class="kategori-header">
+    <div class="kategori-left">
+      <h2>Visualisasi Mutu Sekolah</h2>
+      <select id="searchMutu">
+        <option value="">Tampilkan Semua</option>
+        <option value="sangat unggul">Sangat Unggul</option>
+        <option value="unggul">Unggul</option>
+        <option value="baik">Baik</option>
+        <option value="cukup">Cukup</option>
+        <option value="perlu perhatian">Perlu Perhatian</option>
+      </select>
+    </div>
+    <div class="kategori-right">
+<p>Pemetaan ini menampilkan persebaran sekolah berdasarkan tingkat mutu akhir, mulai dari kategori sangat unggul hingga perlu perhatian. Hasil ini memudahkan pengguna untuk menemukan sekolah berdasarkan kualitas keseluruhan melalui dropdown yang tersedia.</p>
+    </div>
+  </div>
+
+  <div class="gallery">
+    <div class="main-image">
+      <img id="mainImage" src="img/mutu.png" alt="Sangat Unggul" />
+    </div>
+    <div class="thumbnail-row">
+      <img class="thumbnail" src="img/mutu.png" alt="Sangat Unggul" data-mutu="sangat unggul" />
+      <img class="thumbnail" src="img/mutu1.png" alt="Unggul" data-mutu="unggul" />
+      <img class="thumbnail" src="img/mutu2.png" alt="Baik" data-mutu="baik" />
+      <img class="thumbnail" src="img/mutu3.png" alt="Cukup" data-mutu="cukup" />
+      <img class="thumbnail" src="img/mutu4.png" alt="Perlu Perhatian" data-mutu="perlu perhatian" />
+      <img class="thumbnail" src="img/mutu5.png" alt="Lainnya" data-mutu="lainnya" />
+    </div>
+  </div>
+</section>
+
+  <section id="visual">
+<div class="kategori-header">
+    <div class="kategori-left1">
+      <h2>Visualisasi Indikator Pengukuran </h2>
+    </div>
+    <div class="kategori-right">
+<p>Mutu sekolah ditentukan dari gabungan beberapa indikator utama: akreditasi, rasio siswa per guru, rasio siswa per ruang kelas, dan jumlah fasilitas pendukung. Setiap indikator memberikan kontribusi dalam penilaian menyeluruh terhadap kelayakan dan kualitas layanan pendidikan di setiap sekolah.</p>
+    </div>
+  </div>    
+  <div class="visual-grid">
+      <div class="visual-card">
+        <img src="img/mutu.png" alt="Akreditasi" />
+        <p>Akreditasi</p>
+      </div>
+      <div class="visual-card">
+        <img src="img/mutu1.png" alt="Rasio Murid/Guru" />
+        <p>Rasio Murid per Guru</p>
+      </div>
+      <div class="visual-card">
+        <img src="img/mutu2.png" alt="Rasio Kelas" />
+        <p>Rasio Siswa per Kelas</p>
+      </div>
+      <div class="visual-card">
+        <img src="img/mutu3.png" alt="Fasilitas Sekolah" />
+        <p>Fasilitas Sekolah</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+  <p>
+    Sumber data<br>
+    <strong>Dapo Dikdasmen</strong> dan data referensi <strong>Kemendikbud</strong>.
+  </p>
+</footer>
+
+
+  <script>
+  const mainImage = document.getElementById("mainImage");
+  const thumbnails = document.querySelectorAll(".thumbnail");
+  const searchSelect = document.getElementById("searchMutu");
+
+  // Klik thumbnail → update main image
+  thumbnails.forEach(thumbnail => {
+    thumbnail.addEventListener("click", () => {
+      mainImage.src = thumbnail.src;
+      mainImage.alt = thumbnail.alt;
+    });
+  });
+
+  // Ganti gambar berdasarkan filter dropdown
+  searchSelect.addEventListener("change", () => {
+    const selected = searchSelect.value.toLowerCase();
+
+    // Cari thumbnail yang cocok dengan data-mutu
+    const matched = Array.from(thumbnails).find(
+      thumb => thumb.dataset.mutu === selected
+    );
+
+    if (matched) {
+      mainImage.src = matched.src;
+      mainImage.alt = matched.alt;
+    }
+  });
+
+  const modal = document.getElementById('imageModal');
+const modalImg = modal.querySelector('img');
+
+document.querySelectorAll('.visual-card img').forEach(img => {
+  img.addEventListener('click', () => {
+    modal.style.display = 'flex';
+    modalImg.src = img.src;
+    modalImg.alt = img.alt;
+  });
+});
+
+modal.addEventListener('click', () => {
+  modal.style.display = 'none';
+  modalImg.src = '';
+  modalImg.alt = '';
+});
+
+</script>
+
+
+</body>
+</html>
