@@ -755,9 +755,10 @@ footer p .heart {
 
   <div class="gallery">
     <div class="main-image">
-      <img id="mainImage" src="img/mutu.png" alt="Semua Sekolah" />
+      <img id="mainImage" src="img/mutu.png" alt="Semua Sekolah"/>
     </div>
     <div class="thumbnail-row">
+      <!-- <img class="thumbnail" src="img/mutu.png" alt="Semua Sekolah" data-mutu="Semua Sekolah" /> -->
       <img class="thumbnail" src="img/mutu1.png" alt="Sangat Unggul" data-mutu="sangat unggul" />
       <img class="thumbnail" src="img/mutu2.png" alt="Unggul" data-mutu="unggul" />
       <img class="thumbnail" src="img/mutu3.png" alt="Cukup Baik" data-mutu="cukup baik" />
@@ -808,6 +809,7 @@ footer p .heart {
   const mainImage = document.getElementById("mainImage");
   const thumbnails = document.querySelectorAll(".thumbnail");
   const searchSelect = document.getElementById("searchMutu");
+  const defaultImage = "img/mutu.png";
 
   // Klik thumbnail → update main image
   thumbnails.forEach(thumbnail => {
@@ -820,6 +822,13 @@ footer p .heart {
   // Ganti gambar berdasarkan filter dropdown
   searchSelect.addEventListener("change", () => {
     const selected = searchSelect.value.toLowerCase();
+
+    // Handle khusus untuk opsi kembali ke default
+    if(selected === "semua sekolah") {
+      mainImage.src = defaultImage;
+      mainImage.alt = "Semua Sekolah";
+      return;
+    }
 
     // Cari thumbnail yang cocok dengan data-mutu
     const matched = Array.from(thumbnails).find(
